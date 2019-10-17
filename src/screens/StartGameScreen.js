@@ -1,10 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 const StartGameScreen = props => {
   return (
     <View style={styles.screen}>
-      <Text style={styles.text}>The Game Screen</Text>
+      <Text style={styles.title}>Start a New Game!</Text>
+      <View style={styles.inputContainer}>
+        <Text>Select a Number</Text>
+        <TextInput style={styles.input} />
+        <View style={styles.buttonsRow}>
+          <Button title="Reset" onPress={() => {}} />
+          <Button title="Confirm" onPress={() => {}} />
+        </View>
+      </View>
     </View>
   );
 };
@@ -16,7 +24,38 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
-  text: {}
+  title: {
+    fontSize: 20
+  },
+  buttonsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%'
+    // paddingHorizontal: 15,
+    // paddingBottom: 15
+  },
+  inputContainer: {
+    // Common
+    width: 300,
+    maxWidth: '80%',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    marginTop: 10,
+    padding: 20,
+    borderRadius: 10,
+
+    // IOS
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowRadius: 6,
+    shadowOpacity: 0.26,
+
+    // Android
+    elevation: 3
+  }
 });
 
 export default StartGameScreen;
