@@ -1,23 +1,36 @@
 import React from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
+import Card from '../components/Card';
+import colors from '../constants/colors';
+
 const StartGameScreen = props => {
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>Start a New Game!</Text>
-      <View style={styles.inputContainer}>
+      <Card style={styles.inputCard}>
         <Text>Select a Number</Text>
         <TextInput style={styles.input} />
         <View style={styles.buttonsRow}>
-          <Button title="Reset" onPress={() => {}} />
-          <Button title="Confirm" onPress={() => {}} />
+          <View style={styles.buttonView}>
+            <Button title="Reset" onPress={() => {}} color={colors.cancel} />
+          </View>
+          <View style={styles.buttonView}>
+            <Button title="Confirm" onPress={() => {}} color={colors.ok} />
+          </View>
         </View>
-      </View>
+      </Card>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  inputCard: {
+    width: 300,
+    maxWidth: '80%',
+    alignItems: 'center',
+    backgroundColor: colors.card
+  },
   screen: {
     flex: 1,
     padding: 10,
@@ -34,27 +47,8 @@ const styles = StyleSheet.create({
     // paddingHorizontal: 15,
     // paddingBottom: 15
   },
-  inputContainer: {
-    // Common
-    width: 300,
-    maxWidth: '80%',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    marginTop: 10,
-    padding: 20,
-    borderRadius: 10,
-
-    // IOS
-    shadowColor: 'black',
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowRadius: 6,
-    shadowOpacity: 0.26,
-
-    // Android
-    elevation: 3
+  buttonView: {
+    width: '40%'
   }
 });
 
