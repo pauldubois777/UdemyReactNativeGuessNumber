@@ -14,18 +14,41 @@ import colors from '../constants/colors';
 
 const StartGameScreen = props => {
   const [value, setValue] = useState();
+  const [confirmed, setConfirmed] = useState(false);
+  const [confirmedNumber, setConfirmedNumber] = useState();
 
-  const valueHandler = inputValue => {
+  const valueChangeHandler = inputValue => {
     const cleanInput = inputValue.replace(/[^0-9]/g, '');
     setValue(cleanInput);
   };
+
+  const resetHandler = () => {
+    setValue();
+    setConfirmed(false);
+  };
+
+  const confirmHandler = () => {
+    const intValue = parseInt(value, 10);
+    if (isNaN(intValue) || intValue <= 0 || intValue > 99) {
+      return;
+    }
+    setConfirmed(true);
+    setConfirmedNumber(intValue);
+    setValue();
+  };
+
+  let confirmedOutput;
+
+  if (confirmed) {
+    confirmedOutput = <Text>Chosen Number: {confirmedNumber}</Text>;
+  }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.screen}>
         <Text style={styles.title}>Start a New Game!</Text>
         <Card style={styles.inputCard}>
-          <Text>Select a Number from 0 to 99</Text>
+          <Text>Select a Number from 1 to 99</Text>
           <Input
             blurOnSubmit
             autoCapitalize="none"
@@ -33,18 +56,27 @@ const StartGameScreen = props => {
             keyboardType="number-pad"
             maxLength={2}
             style={styles.input}
-            onChangeText={valueHandler}
+            onChangeText={valueChangeHandler}
             value={value}
           />
           <View style={styles.buttonsRow}>
             <View style={styles.buttonView}>
-              <Button title="Reset" onPress={() => {}} color={colors.cancel} />
+              <Button
+                title="Reset"
+                onPress={resetHandler}
+                color={colors.cancel}
+              />
             </View>
             <View style={styles.buttonView}>
-              <Button title="Confirm" onPress={() => {}} color={colors.ok} />
+              <Button
+                title="Confirm"
+                onPress={confirmHandler}
+                color={colors.ok}
+              />
             </View>
           </View>
         </Card>
+        {confirmedOutput}
       </View>
     </TouchableWithoutFeedback>
   );
@@ -59,6 +91,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: 45,
+    fontSize: 16,
     textAlign: 'center'
   },
   screen: {
