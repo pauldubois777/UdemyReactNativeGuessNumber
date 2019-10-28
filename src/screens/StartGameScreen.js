@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import {
+  Button,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View
+} from 'react-native';
 
 import Card from '../components/Card';
 import Input from '../components/Input';
@@ -14,30 +21,32 @@ const StartGameScreen = props => {
   };
 
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title}>Start a New Game!</Text>
-      <Card style={styles.inputCard}>
-        <Text>Select a Number from 0 to 99</Text>
-        <Input
-          blurOnSubmit
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="number-pad"
-          maxLength={2}
-          style={styles.input}
-          onChangeText={valueHandler}
-          value={value}
-        />
-        <View style={styles.buttonsRow}>
-          <View style={styles.buttonView}>
-            <Button title="Reset" onPress={() => {}} color={colors.cancel} />
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.screen}>
+        <Text style={styles.title}>Start a New Game!</Text>
+        <Card style={styles.inputCard}>
+          <Text>Select a Number from 0 to 99</Text>
+          <Input
+            blurOnSubmit
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="number-pad"
+            maxLength={2}
+            style={styles.input}
+            onChangeText={valueHandler}
+            value={value}
+          />
+          <View style={styles.buttonsRow}>
+            <View style={styles.buttonView}>
+              <Button title="Reset" onPress={() => {}} color={colors.cancel} />
+            </View>
+            <View style={styles.buttonView}>
+              <Button title="Confirm" onPress={() => {}} color={colors.ok} />
+            </View>
           </View>
-          <View style={styles.buttonView}>
-            <Button title="Confirm" onPress={() => {}} color={colors.ok} />
-          </View>
-        </View>
-      </Card>
-    </View>
+        </Card>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
