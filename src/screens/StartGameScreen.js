@@ -28,6 +28,10 @@ const StartGameScreen = props => {
     setConfirmed(false);
   };
 
+  const startHanlder = () => {
+    // Does nothing
+  };
+
   const confirmHandler = () => {
     const intValue = parseInt(value, 10);
     if (isNaN(intValue) || intValue <= 0 || intValue > 99) {
@@ -40,12 +44,6 @@ const StartGameScreen = props => {
     setConfirmedNumber(intValue);
     setValue();
   };
-
-  let confirmedOutput;
-
-  if (confirmed) {
-    confirmedOutput = <Text>Chosen Number: {confirmedNumber}</Text>;
-  }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -80,7 +78,19 @@ const StartGameScreen = props => {
             </View>
           </View>
         </Card>
-        {confirmedOutput}
+        {confirmed && (
+          <Card style={styles.confirmStartCard}>
+            <Text style={styles.confirmedText}>You selected</Text>
+            <Text style={styles.confirmedNumber}>{confirmedNumber}</Text>
+            <View>
+              <Button
+                title="Start Game"
+                onPress={startHanlder}
+                color={colors.ok}
+              />
+            </View>
+          </Card>
+        )}
       </View>
     </TouchableWithoutFeedback>
   );
@@ -93,10 +103,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.card
   },
+  confirmStartCard: {
+    width: 150,
+    maxWidth: '60%',
+    alignItems: 'center',
+    backgroundColor: colors.card
+  },
   input: {
     width: 45,
     fontSize: 16,
     textAlign: 'center'
+  },
+  confirmedText: {
+    fontSize: 18
+  },
+  confirmedNumber: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: 'blue'
   },
   screen: {
     flex: 1,
