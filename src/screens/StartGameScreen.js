@@ -30,7 +30,7 @@ const StartGameScreen = props => {
   };
 
   const startHanlder = () => {
-    // Does nothing
+    props.onStartGame(confirmedNumber);
   };
 
   const confirmHandler = () => {

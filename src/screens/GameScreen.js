@@ -15,14 +15,22 @@ const generateGuessBetween = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
 
-  return Math.floor(Math.random() * (max + 1 - min)) + min;
+  return Math.floor((max - min) / 2) + min;
 };
 
 const GameScreen = props => {
-  const [guess, setGuess] = useState(generateGuessBetween(1, 99));
+  const [min, setMin] = useState(1);
+  const [max, setMax] = useState(99);
+  const [guess, setGuess] = useState(generateGuessBetween(min, max));
 
   const guessHandler = guessStatus => {
-    console.log(guessStatus);
+    if (guessStatus === 'higher') {
+      setMin(guess);
+      setGuess(generateGuessBetween(guess, max));
+    } else {
+      setMax(guess);
+      setGuess(generateGuessBetween(min, guess));
+    }
   };
 
   return (
@@ -72,7 +80,7 @@ const styles = StyleSheet.create({
   },
   buttonsRow: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     width: '100%'
     // paddingHorizontal: 15,
     // paddingBottom: 15
