@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
+  Alert,
   Button,
   StyleSheet,
   Text,
@@ -15,15 +16,25 @@ const generateGuessBetween = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
 
-  return Math.floor((max - min) / 2) + min;
+  return Math.round((max - min) / 2 + min);
 };
 
 const GameScreen = props => {
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(99);
   const [guess, setGuess] = useState(generateGuessBetween(min, max));
+  const [guessNumber, setGuessNumber] = useState(1);
 
   const guessHandler = guessStatus => {
+    if (guessNumber > 6) {
+      Alert.alert(
+        'Did you forget your number?  It was ' + props.selectedNumber
+      );
+      return;
+    }
+
+    setGuessNumber(guessNumber + 1);
+
     if (guessStatus === 'higher') {
       setMin(guess);
       setGuess(generateGuessBetween(guess, max));
@@ -32,6 +43,12 @@ const GameScreen = props => {
       setGuess(generateGuessBetween(min, guess));
     }
   };
+
+  useEffect(() => {
+    if (guess === props.selectedNumber) {
+      Alert.alert('We guessed your number!');
+    }
+  }, [guess, props.selectedNumber]);
 
   return (
     <TouchableWithoutFeedback>
