@@ -4,17 +4,32 @@ import { StyleSheet, View } from 'react-native';
 import Header from './components/Header';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
+import GameOverScreen from './screens/GameOverScreen';
 
 const App = () => {
   const [selectedNumber, setSelectedNumber] = useState();
+  const [gameOver, setGameOver] = useState(false);
 
   const startGameHandler = number => {
     setSelectedNumber(number);
   };
 
+  const gameOverHandler = () => {
+    setGameOver(true);
+  };
+
   let content = <StartGameScreen onStartGame={startGameHandler} />;
   if (selectedNumber) {
-    content = <GameScreen selectedNumber={selectedNumber} />;
+    if (gameOver) {
+      content = <GameOverScreen />;
+    } else {
+      content = (
+        <GameScreen
+          selectedNumber={selectedNumber}
+          onGameOver={gameOverHandler}
+        />
+      );
+    }
   }
 
   return (
@@ -30,4 +45,5 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+
 export default App;

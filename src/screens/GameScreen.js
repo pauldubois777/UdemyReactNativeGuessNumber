@@ -46,9 +46,9 @@ const GameScreen = props => {
 
   useEffect(() => {
     if (guess === props.selectedNumber) {
-      Alert.alert('We guessed your number!');
+      props.onGameOver();
     }
-  }, [guess, props.selectedNumber]);
+  }, [guess, props, props.selectedNumber]);
 
   return (
     <TouchableWithoutFeedback>
