@@ -30,7 +30,7 @@ const GameScreen = props => {
       Alert.alert(
         'Did you forget your number?  It was ' + props.selectedNumber
       );
-      return;
+      props.onGameOver(guessNumber);
     }
 
     setGuessNumber(guessNumber + 1);
@@ -46,9 +46,9 @@ const GameScreen = props => {
 
   useEffect(() => {
     if (guess === props.selectedNumber) {
-      props.onGameOver();
+      props.onGameOver(guessNumber);
     }
-  }, [guess, props, props.selectedNumber]);
+  }, [guess, guessNumber, props, props.selectedNumber]);
 
   return (
     <TouchableWithoutFeedback>

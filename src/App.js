@@ -9,19 +9,21 @@ import GameOverScreen from './screens/GameOverScreen';
 const App = () => {
   const [selectedNumber, setSelectedNumber] = useState();
   const [gameOver, setGameOver] = useState(false);
+  const [numberOfGuesses, setNumberOfGuesses] = useState(0);
 
   const startGameHandler = number => {
     setSelectedNumber(number);
   };
 
-  const gameOverHandler = () => {
+  const gameOverHandler = guessNumber => {
+    setNumberOfGuesses(guessNumber);
     setGameOver(true);
   };
 
   let content = <StartGameScreen onStartGame={startGameHandler} />;
   if (selectedNumber) {
     if (gameOver) {
-      content = <GameOverScreen />;
+      content = <GameOverScreen numberOfGuesses={numberOfGuesses} />;
     } else {
       content = (
         <GameScreen

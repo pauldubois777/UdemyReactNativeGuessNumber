@@ -8,7 +8,10 @@ const GameOverScreen = props => {
   return (
     <View style={styles.screen}>
       <Card style={styles.gameOverCard}>
-        <Text>Game Over</Text>
+        <Text style={styles.titleText}>Game Over</Text>
+        <Text style={styles.infoText}>
+          It took me {props.numberOfGuesses} trys to guess your number.
+        </Text>
       </Card>
     </View>
   );
@@ -26,6 +29,13 @@ const styles = StyleSheet.create({
     maxWidth: '80%',
     alignItems: 'center',
     backgroundColor: colors.card
+  },
+  titleText: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  infoText: {
+    textAlign: 'center'
   }
 });
 
