@@ -48,7 +48,7 @@ const GameScreen = props => {
     if (guess === props.selectedNumber) {
       props.onGameOver(guessNumber);
     }
-  }, [guess, guessNumber, props, props.selectedNumber]);
+  }, [guess, guessNumber, props, props.onGameOver, props.selectedNumber]);
 
   return (
     <TouchableWithoutFeedback>

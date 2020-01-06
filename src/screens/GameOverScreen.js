@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 import Card from '../components/Card';
 import colors from '../constants/colors';
@@ -12,6 +12,13 @@ const GameOverScreen = props => {
         <Text style={styles.infoText}>
           It took me {props.numberOfGuesses} trys to guess your number.
         </Text>
+        <View>
+          <Button
+            title="New Game"
+            onPress={props.onNewGame}
+            color={colors.ok}
+          />
+        </View>
       </Card>
     </View>
   );
@@ -35,7 +42,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   infoText: {
-    textAlign: 'center'
+    textAlign: 'center',
+    padding: 5
   }
 });
 

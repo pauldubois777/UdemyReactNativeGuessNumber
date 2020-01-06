@@ -20,10 +20,21 @@ const App = () => {
     setGameOver(true);
   };
 
+  const newGameHandler = () => {
+    setSelectedNumber();
+    setNumberOfGuesses(0);
+    setGameOver(false);
+  };
+
   let content = <StartGameScreen onStartGame={startGameHandler} />;
   if (selectedNumber) {
     if (gameOver) {
-      content = <GameOverScreen numberOfGuesses={numberOfGuesses} />;
+      content = (
+        <GameOverScreen
+          numberOfGuesses={numberOfGuesses}
+          onNewGame={newGameHandler}
+        />
+      );
     } else {
       content = (
         <GameScreen
