@@ -1,0 +1,1 @@
+Adding Fonts:  See https://medium.com/@mehran.khan/ultimate-guide-to-use-custom-fonts-in-react-native-77fcdf859cf4
