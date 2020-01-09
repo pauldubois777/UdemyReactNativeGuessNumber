@@ -4,15 +4,15 @@ import {
   Button,
   Keyboard,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
   View
 } from 'react-native';
 
 import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
-import Input from '../components/Input';
+import TextInputStyled from '../components/TextInputStyled';
 import colors from '../constants/colors';
+import TextStyled from '../components/TextStyled';
 
 const StartGameScreen = props => {
   const [value, setValue] = useState();
@@ -50,10 +50,10 @@ const StartGameScreen = props => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.screen}>
-        <Text style={styles.title}>Start a New Game!</Text>
+        <TextStyled style={styles.title}>Start a New Game!</TextStyled>
         <Card style={styles.inputCard}>
-          <Text>Select a Number from 1 to 99</Text>
-          <Input
+          <TextStyled>Select a Number from 1 to 99</TextStyled>
+          <TextInputStyled
             blurOnSubmit
             autoCapitalize="none"
             autoCorrect={false}
@@ -82,7 +82,7 @@ const StartGameScreen = props => {
         </Card>
         {confirmed && (
           <Card style={styles.confirmStartCard}>
-            <Text style={styles.confirmedText}>You selected</Text>
+            <TextStyled style={styles.confirmedText}>You selected</TextStyled>
             <NumberOutput number={confirmedNumber} />
             <View>
               <Button
@@ -127,7 +127,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   title: {
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: 'OpenSans-Regular',
+    fontWeight: 'bold' // Can use bold weight rather than OpenSans-Bold
   },
   buttonsRow: {
     flexDirection: 'row',

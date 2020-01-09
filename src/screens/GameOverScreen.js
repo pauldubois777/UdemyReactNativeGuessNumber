@@ -1,17 +1,18 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 
 import Card from '../components/Card';
 import colors from '../constants/colors';
+import TextStyled from '../components/TextStyled';
 
 const GameOverScreen = props => {
   return (
     <View style={styles.screen}>
       <Card style={styles.gameOverCard}>
-        <Text style={styles.titleText}>Game Over</Text>
-        <Text style={styles.infoText}>
+        <TextStyled style={styles.titleText}>Game Over</TextStyled>
+        <TextStyled style={styles.infoText}>
           It took me {props.numberOfGuesses} trys to guess your number.
-        </Text>
+        </TextStyled>
         <View>
           <Button
             title="New Game"

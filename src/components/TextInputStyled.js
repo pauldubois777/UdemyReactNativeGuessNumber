@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
+import fonts from '../constants/fonts';
 
-const Input = props => {
+const TextInputStyled = props => {
   return <TextInput {...props} style={{ ...styles.input, ...props.style }} />;
 };
 
@@ -11,8 +12,9 @@ const styles = StyleSheet.create({
     borderBottomColor: 'grey',
     borderBottomWidth: 1,
     marginVertical: 10,
-    textAlignVertical: 'bottom'
+    textAlignVertical: 'bottom',
+    fontFamily: fonts.regular
   }
 });
 
-export default Input;
+export default TextInputStyled;

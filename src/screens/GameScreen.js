@@ -3,7 +3,6 @@ import {
   Alert,
   Button,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
   View
 } from 'react-native';
@@ -11,6 +10,7 @@ import {
 import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
 import colors from '../constants/colors';
+import TextStyled from '../components/TextStyled';
 
 const generateGuessBetween = (min, max) => {
   min = Math.ceil(min);
@@ -54,7 +54,9 @@ const GameScreen = props => {
     <TouchableWithoutFeedback>
       <View style={styles.screen}>
         <Card style={styles.guessCard}>
-          <Text style={styles.guessLabelText}>Computer's Guess</Text>
+          <TextStyled style={styles.guessLabelText}>
+            Computer's Guess
+          </TextStyled>
           <NumberOutput number={guess} />
           <View style={styles.buttonsRow}>
             <View style={styles.buttonView}>
