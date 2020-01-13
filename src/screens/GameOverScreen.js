@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { Button, Image, StyleSheet, View } from 'react-native';
 
 import Card from '../components/Card';
 import colors from '../constants/colors';
@@ -10,8 +10,27 @@ const GameOverScreen = props => {
     <View style={styles.screen}>
       <Card style={styles.gameOverCard}>
         <TextStyled style={styles.titleText}>Game Over</TextStyled>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={require('../../assets/images/success.png')}
+            resizeMode="cover"
+          />
+          {/* <Image
+            style={styles.image}
+            source={{
+              uri:
+                'https://media.gettyimages.com/photos/bold-picture-id483390353?s=612x612'
+            }}
+            resizeMode="cover"
+          /> */}
+        </View>
         <TextStyled style={styles.infoText}>
-          It took me {props.numberOfGuesses} trys to guess your number.
+          It took me{' '}
+          <TextStyled style={styles.highlight}>
+            {props.numberOfGuesses}
+          </TextStyled>{' '}
+          trys to guess your number.
         </TextStyled>
         <View>
           <Button
@@ -44,7 +63,25 @@ const styles = StyleSheet.create({
   },
   infoText: {
     textAlign: 'center',
-    padding: 5
+    margin: 15
+  },
+  image: {
+    width: '100%',
+    height: '100%'
+  },
+  imageContainer: {
+    height: 150,
+    width: 150,
+    borderRadius: 75,
+    borderWidth: 3,
+    borderColor: 'black',
+    overflow: 'hidden',
+    marginVertical: 10
+  },
+  highlight: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: 'blue'
   }
 });
 
