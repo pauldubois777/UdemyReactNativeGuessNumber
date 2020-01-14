@@ -13,6 +13,7 @@ import NumberOutput from '../components/NumberOutput';
 import TextInputStyled from '../components/TextInputStyled';
 import colors from '../constants/colors';
 import TextStyled from '../components/TextStyled';
+import ButtonPrimary from '../components/ButtonPrimary';
 
 const StartGameScreen = props => {
   const [value, setValue] = useState();
@@ -85,11 +86,7 @@ const StartGameScreen = props => {
             <TextStyled style={styles.confirmedText}>You selected</TextStyled>
             <NumberOutput number={confirmedNumber} />
             <View>
-              <Button
-                title="Start Game"
-                onPress={startHanlder}
-                color={colors.ok}
-              />
+              <ButtonPrimary title="Start Game" onPress={startHanlder} />
             </View>
           </Card>
         )}
@@ -106,8 +103,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.card
   },
   confirmStartCard: {
-    width: 150,
-    maxWidth: '60%',
+    width: 275,
+    maxWidth: '75%',
     alignItems: 'center',
     backgroundColor: colors.card,
     marginTop: 20

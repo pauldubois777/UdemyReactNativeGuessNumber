@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button, Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 
 import Card from '../components/Card';
 import colors from '../constants/colors';
 import TextStyled from '../components/TextStyled';
+import ButtonPrimary from '../components/ButtonPrimary';
 
 const GameOverScreen = props => {
   return (
@@ -33,7 +34,7 @@ const GameOverScreen = props => {
           trys to guess your number.
         </TextStyled>
         <View>
-          <Button
+          <ButtonPrimary
             title="New Game"
             onPress={props.onNewGame}
             color={colors.ok}

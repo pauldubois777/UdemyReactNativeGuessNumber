@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   Alert,
-  Button,
   StyleSheet,
   TouchableWithoutFeedback,
   View
@@ -11,6 +10,7 @@ import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
 import colors from '../constants/colors';
 import TextStyled from '../components/TextStyled';
+import ButtonPrimary from '../components/ButtonPrimary';
 
 const generateGuessBetween = (min, max) => {
   min = Math.ceil(min);
@@ -60,14 +60,14 @@ const GameScreen = props => {
           <NumberOutput number={guess} />
           <View style={styles.buttonsRow}>
             <View style={styles.buttonView}>
-              <Button
+              <ButtonPrimary
                 title="Lower"
                 onPress={() => guessHandler('lower')}
                 color={colors.cancel}
               />
             </View>
             <View style={styles.buttonView}>
-              <Button
+              <ButtonPrimary
                 title="Higher"
                 onPress={() => guessHandler('higher')}
                 color={colors.cancel}
@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   guessCard: {
-    width: 300,
-    maxWidth: '80%',
+    width: 400,
+    maxWidth: '90%',
     alignItems: 'center',
     backgroundColor: colors.card,
     marginTop: 20
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     // paddingBottom: 15
   },
   buttonView: {
-    width: '30%'
+    width: '40%'
   }
 });
 
