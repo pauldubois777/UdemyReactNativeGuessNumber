@@ -11,6 +11,7 @@ import NumberOutput from '../components/NumberOutput';
 import colors from '../constants/colors';
 import TextStyled from '../components/TextStyled';
 import ButtonPrimary from '../components/ButtonPrimary';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const generateGuessBetween = (min, max) => {
   min = Math.ceil(min);
@@ -63,14 +64,14 @@ const GameScreen = props => {
               <ButtonPrimary
                 onPress={() => guessHandler('lower')}
                 color={colors.cancel}>
-                Lower
+                <Icon name="minus-circle" size={30} />
               </ButtonPrimary>
             </View>
             <View style={styles.buttonView}>
               <ButtonPrimary
                 onPress={() => guessHandler('higher')}
                 color={colors.cancel}>
-                Higher
+                <Icon name="plus-circle" size={30} />
               </ButtonPrimary>
             </View>
           </View>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Alert,
-  Button,
   Keyboard,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -14,6 +13,7 @@ import TextInputStyled from '../components/TextInputStyled';
 import colors from '../constants/colors';
 import TextStyled from '../components/TextStyled';
 import ButtonPrimary from '../components/ButtonPrimary';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const StartGameScreen = props => {
   const [value, setValue] = useState();
@@ -51,6 +51,7 @@ const StartGameScreen = props => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.screen}>
+        <Icon name="rocket" size={50} color={colors.ok} />
         <TextStyled style={styles.title}>Start a New Game!</TextStyled>
         <Card style={styles.inputCard}>
           <TextStyled>Select a Number from 1 to 99</TextStyled>
