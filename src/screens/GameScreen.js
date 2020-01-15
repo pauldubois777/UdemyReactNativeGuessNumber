@@ -61,17 +61,17 @@ const GameScreen = props => {
           <View style={styles.buttonsRow}>
             <View style={styles.buttonView}>
               <ButtonPrimary
-                title="Lower"
                 onPress={() => guessHandler('lower')}
-                color={colors.cancel}
-              />
+                color={colors.cancel}>
+                Lower
+              </ButtonPrimary>
             </View>
             <View style={styles.buttonView}>
               <ButtonPrimary
-                title="Higher"
                 onPress={() => guessHandler('higher')}
-                color={colors.cancel}
-              />
+                color={colors.cancel}>
+                Higher
+              </ButtonPrimary>
             </View>
           </View>
         </Card>

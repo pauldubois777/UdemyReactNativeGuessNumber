@@ -34,11 +34,9 @@ const GameOverScreen = props => {
           trys to guess your number.
         </TextStyled>
         <View>
-          <ButtonPrimary
-            title="New Game"
-            onPress={props.onNewGame}
-            color={colors.ok}
-          />
+          <ButtonPrimary onPress={props.onNewGame} color={colors.ok}>
+            New Game
+          </ButtonPrimary>
         </View>
       </Card>
     </View>

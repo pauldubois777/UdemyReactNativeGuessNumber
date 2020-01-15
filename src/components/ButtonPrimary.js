@@ -12,7 +12,7 @@ const ButtonPrimary = props => {
   return (
     <TouchableOpacity activeOpacity={0.75} onPress={props.onPress}>
       <View style={buttonViewStyles}>
-        <TextStyled style={styles.buttonText}>{props.title}</TextStyled>
+        <TextStyled style={styles.buttonText}>{props.children}</TextStyled>
       </View>
     </TouchableOpacity>
   );
