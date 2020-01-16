@@ -13,43 +13,43 @@ import TextStyled from '../components/TextStyled';
 import ButtonPrimary from '../components/ButtonPrimary';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const generateGuessBetween = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-
-  return Math.round((max - min) / 2 + min);
-};
-
 const GameScreen = props => {
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(99);
-  const [guess, setGuess] = useState(generateGuessBetween(min, max));
-  const [guessNumber, setGuessNumber] = useState(1);
-
-  const guessHandler = guessStatus => {
-    if (guessNumber > 6) {
-      Alert.alert(
-        'Did you forget your number?  It was ' + props.selectedNumber
-      );
-      props.onGameOver(guessNumber);
-    }
-
-    setGuessNumber(guessNumber + 1);
-
-    if (guessStatus === 'higher') {
-      setMin(guess);
-      setGuess(generateGuessBetween(guess, max));
-    } else {
-      setMax(guess);
-      setGuess(generateGuessBetween(min, guess));
-    }
-  };
+  const [guess, setGuess] = useState(50);
+  const [guesses, setGuesses] = useState([50]);
 
   useEffect(() => {
     if (guess === props.selectedNumber) {
-      props.onGameOver(guessNumber);
+      props.onGameOver(guesses.length);
     }
-  }, [guess, guessNumber, props, props.onGameOver, props.selectedNumber]);
+  }, [guess, guesses.length, props, props.onGameOver, props.selectedNumber]);
+
+  const generateGuessBetween = (newGuessMin, newGuessMax) => {
+    const calcMin = Math.ceil(newGuessMin);
+    const calcMax = Math.floor(newGuessMax);
+    const currentGuess = Math.round((calcMax - calcMin) / 2 + calcMin);
+
+    setGuess(currentGuess);
+    setGuesses(guesses.concat([currentGuess]));
+  };
+
+  const guessHandler = guessStatus => {
+    if (guesses.length > 6) {
+      Alert.alert(
+        'Did you forget your number?  It was ' + props.selectedNumber
+      );
+      props.onGameOver(guesses.length);
+    }
+
+    if (guessStatus === 'higher') {
+      setMin(guess);
+      generateGuessBetween(guess, max);
+    } else {
+      setMax(guess);
+      generateGuessBetween(min, guess);
+    }
+  };
 
   return (
     <TouchableWithoutFeedback>
@@ -76,6 +76,9 @@ const GameScreen = props => {
             </View>
           </View>
         </Card>
+        {guesses.map(aGuess => (
+          <TextStyled key={aGuess}>{aGuess}</TextStyled>
+        ))}
       </View>
     </TouchableWithoutFeedback>
   );
