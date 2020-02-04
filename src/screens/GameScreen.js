@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, StyleSheet, View, ScrollView } from 'react-native';
+import { Alert, StyleSheet, View, ScrollView, FlatList } from 'react-native';
 
 import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
@@ -73,7 +73,7 @@ const GameScreen = props => {
         </View>
       </Card>
       <View style={styles.guessListContainer}>
-        <ScrollView contentContainerStyle={styles.guessList}>
+        {/* <ScrollView contentContainerStyle={styles.guessList}>
           {guesses.map((aGuess, idx) => (
             <GuessListItem
               guessNumber={guesses.length - idx}
@@ -81,7 +81,21 @@ const GameScreen = props => {
               key={idx}
             />
           ))}
-        </ScrollView>
+        </ScrollView> */}
+        <FlatList
+          contentContainerStyle={styles.guessList}
+          data={guesses.map((theGuess, idx) => {
+            const guessNumber = (guesses.length - idx).toString();
+            return {
+              id: guessNumber,
+              guessNumber,
+              value: theGuess
+            };
+          })}
+          renderItem={({ item }) => (
+            <GuessListItem guessNumber={item.guessNumber} value={item.value} />
+          )}
+        />
       </View>
     </View>
   );
