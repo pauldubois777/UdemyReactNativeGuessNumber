@@ -14,6 +14,7 @@ import colors from '../constants/colors';
 import TextStyled from '../components/TextStyled';
 import ButtonPrimary from '../components/ButtonPrimary';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import fonts from '../constants/fonts';
 
 const StartGameScreen = props => {
   const [value, setValue] = useState();
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: fonts.regular,
     fontWeight: 'bold' // Can use bold weight rather than OpenSans-Bold
   },
   buttonsRow: {

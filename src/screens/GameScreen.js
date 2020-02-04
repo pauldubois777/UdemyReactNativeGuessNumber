@@ -50,6 +50,15 @@ const GameScreen = props => {
     setGuesses([newGuess, ...guesses]);
   };
 
+  const flatListData = guesses.map((theGuess, idx) => {
+    const guessNumber = (guesses.length - idx).toString();
+    return {
+      id: guessNumber,
+      guessNumber,
+      value: theGuess
+    };
+  });
+
   return (
     <View style={styles.screen}>
       <Card style={styles.guessCard}>
@@ -84,14 +93,7 @@ const GameScreen = props => {
         </ScrollView> */}
         <FlatList
           contentContainerStyle={styles.guessList}
-          data={guesses.map((theGuess, idx) => {
-            const guessNumber = (guesses.length - idx).toString();
-            return {
-              id: guessNumber,
-              guessNumber,
-              value: theGuess
-            };
-          })}
+          data={flatListData}
           renderItem={({ item }) => (
             <GuessListItem guessNumber={item.guessNumber} value={item.value} />
           )}
