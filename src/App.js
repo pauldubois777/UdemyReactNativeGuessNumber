@@ -46,15 +46,15 @@ const App = () => {
   }
 
   return (
-    <View style={styles.screen}>
+    <View style={styles.screenView}>
       <Header title="Guess a Number" />
-      <ScrollView>{content}</ScrollView>
+      <View style={styles.screenView}>{content}</View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  screen: {
+  screenView: {
     flex: 1
   }
 });

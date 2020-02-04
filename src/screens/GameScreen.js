@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Alert,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-  ScrollView
-} from 'react-native';
+import { Alert, StyleSheet, View, ScrollView } from 'react-native';
 
 import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
@@ -57,43 +51,39 @@ const GameScreen = props => {
   };
 
   return (
-    <TouchableWithoutFeedback>
-      <View style={styles.screen}>
-        <Card style={styles.guessCard}>
-          <TextStyled style={styles.guessLabelText}>
-            Computer's Guess
-          </TextStyled>
-          <NumberOutput number={guess} />
-          <View style={styles.buttonsRow}>
-            <View style={styles.buttonView}>
-              <ButtonPrimary
-                onPress={() => guessHandler('lower')}
-                color={colors.cancel}>
-                <Icon name="minus-circle" size={30} />
-              </ButtonPrimary>
-            </View>
-            <View style={styles.buttonView}>
-              <ButtonPrimary
-                onPress={() => guessHandler('higher')}
-                color={colors.cancel}>
-                <Icon name="plus-circle" size={30} />
-              </ButtonPrimary>
-            </View>
+    <View style={styles.screen}>
+      <Card style={styles.guessCard}>
+        <TextStyled style={styles.guessLabelText}>Computer's Guess</TextStyled>
+        <NumberOutput number={guess} />
+        <View style={styles.buttonsRow}>
+          <View style={styles.buttonView}>
+            <ButtonPrimary
+              onPress={() => guessHandler('lower')}
+              color={colors.cancel}>
+              <Icon name="minus-circle" size={30} />
+            </ButtonPrimary>
           </View>
-        </Card>
-        <View style={styles.guessListContainer}>
-          <ScrollView contentContainerStyle={styles.guessList}>
-            {guesses.map((aGuess, idx) => (
-              <GuessListItem
-                guessNumber={guesses.length - idx}
-                value={aGuess}
-                key={idx}
-              />
-            ))}
-          </ScrollView>
+          <View style={styles.buttonView}>
+            <ButtonPrimary
+              onPress={() => guessHandler('higher')}
+              color={colors.cancel}>
+              <Icon name="plus-circle" size={30} />
+            </ButtonPrimary>
+          </View>
         </View>
+      </Card>
+      <View style={styles.guessListContainer}>
+        <ScrollView contentContainerStyle={styles.guessList}>
+          {guesses.map((aGuess, idx) => (
+            <GuessListItem
+              guessNumber={guesses.length - idx}
+              value={aGuess}
+              key={idx}
+            />
+          ))}
+        </ScrollView>
       </View>
-    </TouchableWithoutFeedback>
+    </View>
   );
 };
 
