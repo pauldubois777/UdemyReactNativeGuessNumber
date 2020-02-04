@@ -3,13 +3,15 @@ import {
   Alert,
   StyleSheet,
   TouchableWithoutFeedback,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 
 import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
 import colors from '../constants/colors';
 import TextStyled from '../components/TextStyled';
+import GuessListItem from '../components/GuessListItem';
 import ButtonPrimary from '../components/ButtonPrimary';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -51,7 +53,7 @@ const GameScreen = props => {
     }
 
     setGuess(newGuess);
-    setGuesses(guesses.concat([newGuess]));
+    setGuesses([newGuess, ...guesses]);
   };
 
   return (
@@ -79,9 +81,17 @@ const GameScreen = props => {
             </View>
           </View>
         </Card>
-        {guesses.map(aGuess => (
-          <TextStyled key={aGuess}>{aGuess}</TextStyled>
-        ))}
+        <View style={styles.guessListContainer}>
+          <ScrollView contentContainerStyle={styles.guessList}>
+            {guesses.map((aGuess, idx) => (
+              <GuessListItem
+                guessNumber={guesses.length - idx}
+                value={aGuess}
+                key={idx}
+              />
+            ))}
+          </ScrollView>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -113,6 +123,15 @@ const styles = StyleSheet.create({
   },
   buttonView: {
     width: '40%'
+  },
+  guessListContainer: {
+    width: '60%',
+    flex: 1
+  },
+  guessList: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end'
   }
 });
 

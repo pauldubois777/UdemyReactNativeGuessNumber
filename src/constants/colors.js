@@ -4,5 +4,7 @@ export default {
   ok: 'blue',
   primary: '#f7287b',
   lightText: 'white',
-  darkText: 'black'
+  darkText: 'black',
+  border: '#ccc',
+  listItemBackground: 'white'
 };
