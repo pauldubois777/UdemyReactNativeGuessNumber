@@ -13,26 +13,25 @@ import TextStyled from '../components/TextStyled';
 import ButtonPrimary from '../components/ButtonPrimary';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+const INITIAL_GUESS = 50;
+
+const generateGuessBetween = (newGuessMin, newGuessMax) => {
+  const calcMin = Math.ceil(newGuessMin);
+  const calcMax = Math.floor(newGuessMax);
+  return Math.round((calcMax - calcMin) / 2 + calcMin);
+};
+
 const GameScreen = props => {
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(99);
-  const [guess, setGuess] = useState(50);
-  const [guesses, setGuesses] = useState([50]);
+  const [guess, setGuess] = useState(INITIAL_GUESS);
+  const [guesses, setGuesses] = useState([INITIAL_GUESS]);
 
   useEffect(() => {
     if (guess === props.selectedNumber) {
       props.onGameOver(guesses.length);
     }
   }, [guess, guesses.length, props, props.onGameOver, props.selectedNumber]);
-
-  const generateGuessBetween = (newGuessMin, newGuessMax) => {
-    const calcMin = Math.ceil(newGuessMin);
-    const calcMax = Math.floor(newGuessMax);
-    const currentGuess = Math.round((calcMax - calcMin) / 2 + calcMin);
-
-    setGuess(currentGuess);
-    setGuesses(guesses.concat([currentGuess]));
-  };
 
   const guessHandler = guessStatus => {
     if (guesses.length > 6) {
@@ -42,13 +41,17 @@ const GameScreen = props => {
       props.onGameOver(guesses.length);
     }
 
+    let newGuess;
     if (guessStatus === 'higher') {
       setMin(guess);
-      generateGuessBetween(guess, max);
+      newGuess = generateGuessBetween(guess, max);
     } else {
       setMax(guess);
-      generateGuessBetween(min, guess);
+      newGuess = generateGuessBetween(min, guess);
     }
+
+    setGuess(newGuess);
+    setGuesses(guesses.concat([newGuess]));
   };
 
   return (
