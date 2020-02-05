@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   Alert,
+  Dimensions,
   Keyboard,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -52,9 +53,13 @@ const StartGameScreen = props => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.screen}>
-        <Icon name="rocket" size={50} color={colors.ok} />
+        <Icon
+          name="rocket"
+          size={Dimensions.get('window').height > 600 ? 50 : 30}
+          color={colors.ok}
+        />
         <TextStyled style={styles.title}>Start a New Game!</TextStyled>
-        <Card style={styles.inputCard}>
+        <Card>
           <TextStyled>Select a Number from 1 to 99</TextStyled>
           <TextInputStyled
             blurOnSubmit
@@ -94,18 +99,9 @@ const StartGameScreen = props => {
 };
 
 const styles = StyleSheet.create({
-  inputCard: {
-    width: 300,
-    maxWidth: '80%',
-    alignItems: 'center',
-    backgroundColor: colors.card
-  },
   confirmStartCard: {
-    width: 275,
-    maxWidth: '75%',
-    alignItems: 'center',
-    backgroundColor: colors.card,
-    marginTop: 20
+    width: '60%',
+    minWidth: 200
   },
   input: {
     width: 45,
@@ -134,7 +130,8 @@ const styles = StyleSheet.create({
     // paddingBottom: 15
   },
   buttonView: {
-    width: '45%'
+    minWidth: '40%',
+    width: Dimensions.get('window').width / 3
   }
 });
 
