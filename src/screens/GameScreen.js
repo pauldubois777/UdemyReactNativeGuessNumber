@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, StyleSheet, View, ScrollView, FlatList } from 'react-native';
+import {
+  Alert,
+  StyleSheet,
+  View,
+  ScrollView,
+  FlatList,
+  Dimensions
+} from 'react-native';
 
 import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
@@ -131,7 +138,7 @@ const styles = StyleSheet.create({
     width: '40%'
   },
   guessListContainer: {
-    width: '60%',
+    width: Dimensions.width > 300 ? '60%' : '100%',
     flex: 1
   },
   guessList: {
