@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Alert,
-  StyleSheet,
-  View,
-  ScrollView,
-  FlatList,
-  Dimensions
-} from 'react-native';
+import { Alert, StyleSheet, View, FlatList, Dimensions } from 'react-native';
 
 import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
