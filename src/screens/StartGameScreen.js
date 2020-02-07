@@ -19,10 +19,28 @@ import ButtonPrimary from '../components/ButtonPrimary';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import fonts from '../constants/fonts';
 
+const calcIconSize = windowDimensions => {
+  return windowDimensions.height > 600 ? 50 : 30;
+};
+
+const calcButtonRowWidth = windowDimensions => {
+  return windowDimensions.width < 351
+    ? '90%'
+    : windowDimensions.width < 800
+    ? '80%'
+    : '70%';
+};
+
 const StartGameScreen = props => {
   const [value, setValue] = useState();
   const [confirmed, setConfirmed] = useState(false);
   const [confirmedNumber, setConfirmedNumber] = useState();
+  const [iconSize, setIconSize] = useState(
+    calcIconSize(Dimensions.get('window'))
+  );
+  const [buttonRowWidth, setButtonRowWidth] = useState(
+    calcButtonRowWidth(Dimensions.get('window'))
+  );
 
   const valueChangeHandler = inputValue => {
     const cleanInput = inputValue.replace(/[^0-9]/g, '');
@@ -57,11 +75,7 @@ const StartGameScreen = props => {
       <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={30}>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <View style={styles.screen}>
-            <Icon
-              name="rocket"
-              size={Dimensions.get('window').height > 600 ? 50 : 30}
-              color={colors.ok}
-            />
+            <Icon name="rocket" size={iconSize} color={colors.ok} />
             <TextStyled style={styles.title}>Start a New Game!</TextStyled>
             <Card style={styles.selectCard}>
               <TextStyled>Select a Number from 1 to 99</TextStyled>
@@ -75,7 +89,7 @@ const StartGameScreen = props => {
                 onChangeText={valueChangeHandler}
                 value={value}
               />
-              <View style={styles.buttonsRow}>
+              <View style={{ ...styles.buttonsRow, width: buttonRowWidth }}>
                 <View style={styles.buttonView}>
                   <ButtonPrimary onPress={resetHandler} color={colors.cancel}>
                     Reset
@@ -138,15 +152,7 @@ const styles = StyleSheet.create({
   },
   buttonsRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width:
-      Dimensions.get('window').width < 351
-        ? '90%'
-        : Dimensions.get('window').width < 800
-        ? '80%'
-        : '70%'
-    // paddingHorizontal: 15,
-    // paddingBottom: 15
+    justifyContent: 'space-between'
   },
   buttonView: {
     width: '45%'
