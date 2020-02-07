@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Alert,
   Dimensions,
@@ -20,7 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import fonts from '../constants/fonts';
 
 const calcIconSize = windowDimensions => {
-  return windowDimensions.height > 600 ? 50 : 30;
+  return windowDimensions.height > 500 ? 50 : 30;
 };
 
 const calcButtonRowWidth = windowDimensions => {
@@ -41,6 +41,16 @@ const StartGameScreen = props => {
   const [buttonRowWidth, setButtonRowWidth] = useState(
     calcButtonRowWidth(Dimensions.get('window'))
   );
+
+  useEffect(() => {
+    const updateLayout = () => {
+      const windowDimensions = Dimensions.get('window');
+      setIconSize(calcIconSize(windowDimensions));
+      setButtonRowWidth(calcButtonRowWidth(windowDimensions));
+    };
+    Dimensions.addEventListener('change', updateLayout);
+    return () => Dimensions.removeEventListener('change', updateLayout);
+  }, []);
 
   const valueChangeHandler = inputValue => {
     const cleanInput = inputValue.replace(/[^0-9]/g, '');
