@@ -3,6 +3,7 @@ import {
   Alert,
   Dimensions,
   Keyboard,
+  ScrollView,
   StyleSheet,
   TouchableWithoutFeedback,
   View
@@ -51,57 +52,63 @@ const StartGameScreen = props => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.screen}>
-        <Icon
-          name="rocket"
-          size={Dimensions.get('window').height > 600 ? 50 : 30}
-          color={colors.ok}
-        />
-        <TextStyled style={styles.title}>Start a New Game!</TextStyled>
-        <Card>
-          <TextStyled>Select a Number from 1 to 99</TextStyled>
-          <TextInputStyled
-            blurOnSubmit
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="number-pad"
-            maxLength={2}
-            style={styles.input}
-            onChangeText={valueChangeHandler}
-            value={value}
+    <ScrollView>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.screen}>
+          <Icon
+            name="rocket"
+            size={Dimensions.get('window').height > 600 ? 50 : 30}
+            color={colors.ok}
           />
-          <View style={styles.buttonsRow}>
-            <View style={styles.buttonView}>
-              <ButtonPrimary onPress={resetHandler} color={colors.cancel}>
-                Reset
-              </ButtonPrimary>
-            </View>
-            <View style={styles.buttonView}>
-              <ButtonPrimary onPress={confirmHandler} color={colors.ok}>
-                Confirm
-              </ButtonPrimary>
-            </View>
-          </View>
-        </Card>
-        {confirmed && (
-          <Card style={styles.confirmStartCard}>
-            <TextStyled style={styles.confirmedText}>You selected</TextStyled>
-            <NumberOutput number={confirmedNumber} />
-            <View>
-              <ButtonPrimary onPress={startHanlder}>Start Game</ButtonPrimary>
+          <TextStyled style={styles.title}>Start a New Game!</TextStyled>
+          <Card style={styles.selectCard}>
+            <TextStyled>Select a Number from 1 to 99</TextStyled>
+            <TextInputStyled
+              blurOnSubmit
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="number-pad"
+              maxLength={2}
+              style={styles.input}
+              onChangeText={valueChangeHandler}
+              value={value}
+            />
+            <View style={styles.buttonsRow}>
+              <View style={styles.buttonView}>
+                <ButtonPrimary onPress={resetHandler} color={colors.cancel}>
+                  Reset
+                </ButtonPrimary>
+              </View>
+              <View style={styles.buttonView}>
+                <ButtonPrimary onPress={confirmHandler} color={colors.ok}>
+                  Confirm
+                </ButtonPrimary>
+              </View>
             </View>
           </Card>
-        )}
-      </View>
-    </TouchableWithoutFeedback>
+          {confirmed && (
+            <Card style={styles.confirmStartCard}>
+              <TextStyled style={styles.confirmedText}>You selected</TextStyled>
+              <NumberOutput number={confirmedNumber} />
+              <View>
+                <ButtonPrimary onPress={startHanlder}>Start Game</ButtonPrimary>
+              </View>
+            </Card>
+          )}
+        </View>
+      </TouchableWithoutFeedback>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  selectCard: {
+    width: '80%',
+    maxWidth: 400
+  },
   confirmStartCard: {
     width: '60%',
-    minWidth: 200
+    maxWidth: 300
   },
   input: {
     width: 45,
@@ -125,13 +132,17 @@ const styles = StyleSheet.create({
   buttonsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '100%'
+    width:
+      Dimensions.get('window').width < 351
+        ? '90%'
+        : Dimensions.get('window').width < 800
+        ? '80%'
+        : '70%'
     // paddingHorizontal: 15,
     // paddingBottom: 15
   },
   buttonView: {
-    minWidth: '40%',
-    width: Dimensions.get('window').width / 3
+    width: '45%'
   }
 });
 

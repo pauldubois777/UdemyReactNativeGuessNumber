@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 
 import Card from '../components/Card';
 import colors from '../constants/colors';
@@ -8,16 +8,17 @@ import ButtonPrimary from '../components/ButtonPrimary';
 
 const GameOverScreen = props => {
   return (
-    <View style={styles.screen}>
-      <Card style={styles.gameOverCard}>
-        <TextStyled style={styles.titleText}>Game Over</TextStyled>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/images/success.png')}
-            resizeMode="cover"
-          />
-          {/* <Image
+    <ScrollView>
+      <View style={styles.screen}>
+        <Card style={styles.gameOverCard}>
+          <TextStyled style={styles.titleText}>Game Over</TextStyled>
+          <View style={styles.imageContainer}>
+            <Image
+              style={styles.image}
+              source={require('../../assets/images/success.png')}
+              resizeMode="cover"
+            />
+            {/* <Image
             style={styles.image}
             source={{
               uri:
@@ -25,21 +26,22 @@ const GameOverScreen = props => {
             }}
             resizeMode="cover"
           /> */}
-        </View>
-        <TextStyled style={styles.infoText}>
-          It took me{' '}
-          <TextStyled style={styles.highlight}>
-            {props.numberOfGuesses}
-          </TextStyled>{' '}
-          trys to guess your number.
-        </TextStyled>
-        <View>
-          <ButtonPrimary onPress={props.onNewGame} color={colors.ok}>
-            New Game
-          </ButtonPrimary>
-        </View>
-      </Card>
-    </View>
+          </View>
+          <TextStyled style={styles.infoText}>
+            It took me{' '}
+            <TextStyled style={styles.highlight}>
+              {props.numberOfGuesses}
+            </TextStyled>{' '}
+            trys to guess your number.
+          </TextStyled>
+          <View>
+            <ButtonPrimary onPress={props.onNewGame} color={colors.ok}>
+              New Game
+            </ButtonPrimary>
+          </View>
+        </Card>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -70,9 +72,9 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   imageContainer: {
-    height: 150,
-    width: 150,
-    borderRadius: 75,
+    height: Dimensions.get('window').width > 350 ? 300 : 150,
+    width: Dimensions.get('window').width > 350 ? 300 : 150,
+    borderRadius: Dimensions.get('window').width > 350 ? 150 : 75,
     borderWidth: 3,
     borderColor: 'black',
     overflow: 'hidden',

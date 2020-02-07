@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     width: '40%'
   },
   guessListContainer: {
-    width: Dimensions.width > 300 ? '60%' : '100%',
+    width: Dimensions.get('window').width > 350 ? '60%' : '100%',
     flex: 1
   },
   guessList: {
