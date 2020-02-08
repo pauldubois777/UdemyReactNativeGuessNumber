@@ -22,12 +22,28 @@ const GameScreen = props => {
   const [max, setMax] = useState(99);
   const [guess, setGuess] = useState(INITIAL_GUESS);
   const [guesses, setGuesses] = useState([INITIAL_GUESS]);
+  const [availableScreenWidth, setAvailableScreenWidth] = useState(
+    Dimensions.get('window').width
+  );
+  const [availableScreenHeight, setAvailableScreenHeight] = useState(
+    Dimensions.get('window').height
+  );
 
   useEffect(() => {
     if (guess === props.selectedNumber) {
       props.onGameOver(guesses.length);
     }
   }, [guess, guesses.length, props, props.onGameOver, props.selectedNumber]);
+
+  useEffect(() => {
+    const updateLayout = () => {
+      const windowDimensions = Dimensions.get('window');
+      setAvailableScreenWidth(windowDimensions.width);
+      setAvailableScreenHeight(windowDimensions.height);
+    };
+    Dimensions.addEventListener('change', updateLayout);
+    return () => Dimensions.removeEventListener('change', updateLayout);
+  }, []);
 
   const guessHandler = guessStatus => {
     if (guesses.length > 6) {
@@ -59,21 +75,36 @@ const GameScreen = props => {
     };
   });
 
+  const listContainerWidth = availableScreenWidth > 350 ? '60%' : '100%';
+
+  let buttonWidth = '100%';
+  let buttonViewWidth = '40%';
+  let cardPadding = 15;
+
+  if (availableScreenHeight <= 350) {
+    buttonWidth = 75;
+    buttonViewWidth = null;
+    cardPadding = 1;
+  }
+
   return (
     <View style={styles.screen}>
-      <Card style={styles.guessCard}>
+      <Card style={{ ...styles.guessCard, padding: cardPadding }}>
         <TextStyled style={styles.guessLabelText}>Computer's Guess</TextStyled>
-        <NumberOutput number={guess} />
+        {availableScreenHeight > 350 && <NumberOutput number={guess} />}
         <View style={styles.buttonsRow}>
-          <View style={styles.buttonView}>
+          <View style={{ width: buttonViewWidth }}>
             <ButtonPrimary
+              width={buttonWidth}
               onPress={() => guessHandler('lower')}
               color={colors.cancel}>
               <Icon name="minus-circle" size={30} />
             </ButtonPrimary>
           </View>
-          <View style={styles.buttonView}>
+          {availableScreenHeight <= 350 && <NumberOutput number={guess} />}
+          <View style={{ width: buttonViewWidth }}>
             <ButtonPrimary
+              width={buttonWidth}
               onPress={() => guessHandler('higher')}
               color={colors.cancel}>
               <Icon name="plus-circle" size={30} />
@@ -81,7 +112,11 @@ const GameScreen = props => {
           </View>
         </View>
       </Card>
-      <View style={styles.guessListContainer}>
+      <View
+        style={{
+          ...styles.guessListContainer,
+          width: listContainerWidth
+        }}>
         {/* <ScrollView contentContainerStyle={styles.guessList}>
           {guesses.map((aGuess, idx) => (
             <GuessListItem
@@ -122,16 +157,13 @@ const styles = StyleSheet.create({
   },
   buttonsRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
     width: '100%'
     // paddingHorizontal: 15,
     // paddingBottom: 15
   },
-  buttonView: {
-    width: '40%'
-  },
   guessListContainer: {
-    width: Dimensions.get('window').width > 350 ? '60%' : '100%',
     flex: 1
   },
   guessList: {
