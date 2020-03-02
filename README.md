@@ -10,7 +10,7 @@ I am not using "Expo CLI" for my development, but rather I created the app using
 
 All the code in the `src` folder is almost entirely written by me from scratch - it isn't just copied from the course examples.
 
-I am currently working through "Section 5: Responsive & Adaptive User Interfaces and Apps", video #97.
+I am currently working through "Section 5: Responsive & Adaptive User Interfaces and Apps".
 
 Please keep in mind that this code is in flux, and doesn't always represent my best coding efforts, since it is a course that I am studying.
 On the other hand, I do try to go beyond the course examples and code in a re-usable and well-engineered way.
