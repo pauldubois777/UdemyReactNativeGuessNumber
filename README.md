@@ -8,6 +8,8 @@ The Udemy course is [React Native - The Practical Guided 2020](https://www.udemy
 
 I am not using "Expo CLI" for my development, but rather I created the app using the React CLI.
 
+All the code in the `src` folder is almost entirely written by me from scratch - it isn't just copied from the course examples.
+
 I am currently working through "Section 5: Responsive & Adaptive User Interfaces and Apps", video #97.
 
 Please keep in mind that this code is in flux, and doesn't always represent my best coding efforts, since it is a course that I am studying.
