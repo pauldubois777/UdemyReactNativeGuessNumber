@@ -1,23 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Alert,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View
-} from 'react-native';
+import { Alert, StyleSheet, View, FlatList, Dimensions } from 'react-native';
 
 import Card from '../components/Card';
 import NumberOutput from '../components/NumberOutput';
 import colors from '../constants/colors';
 import TextStyled from '../components/TextStyled';
+import GuessListItem from '../components/GuessListItem';
 import ButtonPrimary from '../components/ButtonPrimary';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+const INITIAL_GUESS = 50;
+
+const generateGuessBetween = (newGuessMin, newGuessMax) => {
+  const calcMin = Math.ceil(newGuessMin);
+  const calcMax = Math.floor(newGuessMax);
+  return Math.round((calcMax - calcMin) / 2 + calcMin);
+};
 
 const GameScreen = props => {
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(99);
-  const [guess, setGuess] = useState(50);
-  const [guesses, setGuesses] = useState([50]);
+  const [guess, setGuess] = useState(INITIAL_GUESS);
+  const [guesses, setGuesses] = useState([INITIAL_GUESS]);
+  const [availableScreenWidth, setAvailableScreenWidth] = useState(
+    Dimensions.get('window').width
+  );
+  const [availableScreenHeight, setAvailableScreenHeight] = useState(
+    Dimensions.get('window').height
+  );
 
   useEffect(() => {
     if (guess === props.selectedNumber) {
@@ -25,14 +35,15 @@ const GameScreen = props => {
     }
   }, [guess, guesses.length, props, props.onGameOver, props.selectedNumber]);
 
-  const generateGuessBetween = (newGuessMin, newGuessMax) => {
-    const calcMin = Math.ceil(newGuessMin);
-    const calcMax = Math.floor(newGuessMax);
-    const currentGuess = Math.round((calcMax - calcMin) / 2 + calcMin);
-
-    setGuess(currentGuess);
-    setGuesses(guesses.concat([currentGuess]));
-  };
+  useEffect(() => {
+    const updateLayout = () => {
+      const windowDimensions = Dimensions.get('window');
+      setAvailableScreenWidth(windowDimensions.width);
+      setAvailableScreenHeight(windowDimensions.height);
+    };
+    Dimensions.addEventListener('change', updateLayout);
+    return () => Dimensions.removeEventListener('change', updateLayout);
+  }, []);
 
   const guessHandler = guessStatus => {
     if (guesses.length > 6) {
@@ -42,45 +53,88 @@ const GameScreen = props => {
       props.onGameOver(guesses.length);
     }
 
+    let newGuess;
     if (guessStatus === 'higher') {
       setMin(guess);
-      generateGuessBetween(guess, max);
+      newGuess = generateGuessBetween(guess, max);
     } else {
       setMax(guess);
-      generateGuessBetween(min, guess);
+      newGuess = generateGuessBetween(min, guess);
     }
+
+    setGuess(newGuess);
+    setGuesses([newGuess, ...guesses]);
   };
 
+  const flatListData = guesses.map((theGuess, idx) => {
+    const guessNumber = (guesses.length - idx).toString();
+    return {
+      id: guessNumber,
+      guessNumber,
+      value: theGuess
+    };
+  });
+
+  const listContainerWidth = availableScreenWidth > 350 ? '60%' : '100%';
+
+  let buttonWidth = '100%';
+  let buttonViewWidth = '40%';
+  let cardPadding = 15;
+
+  if (availableScreenHeight <= 350) {
+    buttonWidth = 75;
+    buttonViewWidth = null;
+    cardPadding = 1;
+  }
+
   return (
-    <TouchableWithoutFeedback>
-      <View style={styles.screen}>
-        <Card style={styles.guessCard}>
-          <TextStyled style={styles.guessLabelText}>
-            Computer's Guess
-          </TextStyled>
-          <NumberOutput number={guess} />
-          <View style={styles.buttonsRow}>
-            <View style={styles.buttonView}>
-              <ButtonPrimary
-                onPress={() => guessHandler('lower')}
-                color={colors.cancel}>
-                <Icon name="minus-circle" size={30} />
-              </ButtonPrimary>
-            </View>
-            <View style={styles.buttonView}>
-              <ButtonPrimary
-                onPress={() => guessHandler('higher')}
-                color={colors.cancel}>
-                <Icon name="plus-circle" size={30} />
-              </ButtonPrimary>
-            </View>
+    <View style={styles.screen}>
+      <Card style={{ ...styles.guessCard, padding: cardPadding }}>
+        <TextStyled style={styles.guessLabelText}>Computer's Guess</TextStyled>
+        {availableScreenHeight > 350 && <NumberOutput number={guess} />}
+        <View style={styles.buttonsRow}>
+          <View style={{ width: buttonViewWidth }}>
+            <ButtonPrimary
+              width={buttonWidth}
+              onPress={() => guessHandler('lower')}
+              color={colors.cancel}>
+              <Icon name="minus-circle" size={30} />
+            </ButtonPrimary>
           </View>
-        </Card>
-        {guesses.map(aGuess => (
-          <TextStyled key={aGuess}>{aGuess}</TextStyled>
-        ))}
+          {availableScreenHeight <= 350 && <NumberOutput number={guess} />}
+          <View style={{ width: buttonViewWidth }}>
+            <ButtonPrimary
+              width={buttonWidth}
+              onPress={() => guessHandler('higher')}
+              color={colors.cancel}>
+              <Icon name="plus-circle" size={30} />
+            </ButtonPrimary>
+          </View>
+        </View>
+      </Card>
+      <View
+        style={{
+          ...styles.guessListContainer,
+          width: listContainerWidth
+        }}>
+        {/* <ScrollView contentContainerStyle={styles.guessList}>
+          {guesses.map((aGuess, idx) => (
+            <GuessListItem
+              guessNumber={guesses.length - idx}
+              value={aGuess}
+              key={idx}
+            />
+          ))}
+        </ScrollView> */}
+        <FlatList
+          contentContainerStyle={styles.guessList}
+          data={flatListData}
+          renderItem={({ item }) => (
+            <GuessListItem guessNumber={item.guessNumber} value={item.value} />
+          )}
+        />
       </View>
-    </TouchableWithoutFeedback>
+    </View>
   );
 };
 
@@ -103,13 +157,19 @@ const styles = StyleSheet.create({
   },
   buttonsRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
     width: '100%'
     // paddingHorizontal: 15,
     // paddingBottom: 15
   },
-  buttonView: {
-    width: '40%'
+  guessListContainer: {
+    flex: 1
+  },
+  guessList: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end'
   }
 });
 

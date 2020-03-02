@@ -8,6 +8,9 @@ const ButtonPrimary = props => {
   if (props.color) {
     buttonViewStyles.backgroundColor = props.color;
   }
+  if (props.width) {
+    buttonViewStyles.width = props.width;
+  }
 
   return (
     <TouchableOpacity activeOpacity={0.75} onPress={props.onPress}>

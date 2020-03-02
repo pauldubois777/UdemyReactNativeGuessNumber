@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import colors from '../constants/colors';
 
 const Card = props => {
   return (
@@ -10,7 +11,11 @@ const Card = props => {
 const styles = StyleSheet.create({
   card: {
     // Common
-    backgroundColor: 'white',
+    width: '80%',
+    maxWidth: '95%',
+    minWidth: 300,
+    alignItems: 'center',
+    backgroundColor: colors.card,
     marginTop: 10,
     padding: 20,
     borderRadius: 10,

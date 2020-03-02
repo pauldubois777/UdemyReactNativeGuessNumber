@@ -1,23 +1,45 @@
-import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 
 import Card from '../components/Card';
 import colors from '../constants/colors';
 import TextStyled from '../components/TextStyled';
 import ButtonPrimary from '../components/ButtonPrimary';
 
+const calcImageWidth = windowDimensions => {
+  return windowDimensions.width > 350 ? 300 : 150;
+};
+
 const GameOverScreen = props => {
+  const [imageWidth, setImageWidth] = useState(
+    calcImageWidth(Dimensions.get('window'))
+  );
+  useEffect(() => {
+    const updateLayout = () => {
+      setImageWidth(calcImageWidth(Dimensions.get('window')));
+    };
+    Dimensions.addEventListener('change', updateLayout);
+    return () => Dimensions.removeEventListener('change', updateLayout);
+  }, []);
+
   return (
-    <View style={styles.screen}>
-      <Card style={styles.gameOverCard}>
-        <TextStyled style={styles.titleText}>Game Over</TextStyled>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/images/success.png')}
-            resizeMode="cover"
-          />
-          {/* <Image
+    <ScrollView>
+      <View style={styles.screen}>
+        <Card style={styles.gameOverCard}>
+          <TextStyled style={styles.titleText}>Game Over</TextStyled>
+          <View
+            style={{
+              ...styles.imageContainer,
+              width: imageWidth,
+              height: imageWidth,
+              borderRadius: imageWidth / 2
+            }}>
+            <Image
+              style={styles.image}
+              source={require('../../assets/images/success.png')}
+              resizeMode="cover"
+            />
+            {/* <Image
             style={styles.image}
             source={{
               uri:
@@ -25,21 +47,22 @@ const GameOverScreen = props => {
             }}
             resizeMode="cover"
           /> */}
-        </View>
-        <TextStyled style={styles.infoText}>
-          It took me{' '}
-          <TextStyled style={styles.highlight}>
-            {props.numberOfGuesses}
-          </TextStyled>{' '}
-          trys to guess your number.
-        </TextStyled>
-        <View>
-          <ButtonPrimary onPress={props.onNewGame} color={colors.ok}>
-            New Game
-          </ButtonPrimary>
-        </View>
-      </Card>
-    </View>
+          </View>
+          <TextStyled style={styles.infoText}>
+            It took me{' '}
+            <TextStyled style={styles.highlight}>
+              {props.numberOfGuesses}
+            </TextStyled>{' '}
+            trys to guess your number.
+          </TextStyled>
+          <View>
+            <ButtonPrimary onPress={props.onNewGame} color={colors.ok}>
+              New Game
+            </ButtonPrimary>
+          </View>
+        </Card>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -51,8 +74,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   gameOverCard: {
-    width: 300,
-    maxWidth: '80%',
+    width: '80%',
+    maxWidth: '95%',
+    minWidth: 300,
     alignItems: 'center',
     backgroundColor: colors.card
   },
@@ -69,9 +93,6 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   imageContainer: {
-    height: 150,
-    width: 150,
-    borderRadius: 75,
     borderWidth: 3,
     borderColor: 'black',
     overflow: 'hidden',
