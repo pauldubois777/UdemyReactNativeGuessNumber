@@ -6,6 +6,8 @@ This Repo is for the "Guess A Number" mobile-app that I am creating for a Udemy 
 
 The Udemy course is [React Native - The Practical Guided 2020](https://www.udemy.com/course/react-native-the-practical-guide)
 
+[Watch a demo video](https://drive.google.com/file/d/1SeJfxqBMY-8pkCQyChsT7u3kki4yyjGh/view?usp=sharing)
+
 I am not using "Expo CLI" for my development, but rather I created the app using the React CLI.
 
 All the code in the `src` folder is almost entirely written by me from scratch - it isn't just copied from the course examples.
