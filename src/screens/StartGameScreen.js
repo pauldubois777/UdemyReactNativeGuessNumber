@@ -25,9 +25,9 @@ const calcIconSize = windowDimensions => {
 
 const calcButtonRowWidth = windowDimensions => {
   return windowDimensions.width < 351
-    ? '90%'
+    ? '100%'
     : windowDimensions.width < 800
-    ? '80%'
+    ? '90%'
     : '70%';
 };
 
