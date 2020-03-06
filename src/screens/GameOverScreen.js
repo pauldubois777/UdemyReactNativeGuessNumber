@@ -8,9 +8,9 @@ import TextStyled from '../components/TextStyled';
 import ButtonPrimary from '../components/ButtonPrimary';
 
 const calcImageWidth = windowDimensions => {
-  return windowDimensions.width <= sizeBreakpoint.small
+  return windowDimensions.height <= sizeBreakpoint.small
     ? 150
-    : windowDimensions.width <= sizeBreakpoint.medium
+    : windowDimensions.height <= sizeBreakpoint.medium
     ? 200
     : 300;
 };
