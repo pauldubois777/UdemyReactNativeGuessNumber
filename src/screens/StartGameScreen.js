@@ -29,8 +29,6 @@ const calcIconSize = windowDimensions => {
 };
 
 const calcButtonRowWidth = windowDimensions => {
-  console.log(windowDimensions.height);
-  console.log(windowDimensions.width);
   return windowDimensions.width <= 365
     ? '100%'
     : windowDimensions.width <= 600
