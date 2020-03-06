@@ -18,15 +18,22 @@ import TextStyled from '../components/TextStyled';
 import ButtonPrimary from '../components/ButtonPrimary';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import fonts from '../constants/fonts';
+import sizeBreakpoint from '../constants/sizeBreakpoint';
 
 const calcIconSize = windowDimensions => {
-  return windowDimensions.height > 500 ? 50 : 30;
+  return windowDimensions.height <= sizeBreakpoint.xsmall
+    ? 30
+    : windowDimensions.height <= sizeBreakpoint.small
+    ? 50
+    : 70;
 };
 
 const calcButtonRowWidth = windowDimensions => {
-  return windowDimensions.width < 351
+  console.log(windowDimensions.height);
+  console.log(windowDimensions.width);
+  return windowDimensions.width <= 365
     ? '100%'
-    : windowDimensions.width < 800
+    : windowDimensions.width <= 600
     ? '90%'
     : '70%';
 };

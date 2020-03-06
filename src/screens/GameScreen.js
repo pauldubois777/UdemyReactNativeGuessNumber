@@ -8,6 +8,7 @@ import TextStyled from '../components/TextStyled';
 import GuessListItem from '../components/GuessListItem';
 import ButtonPrimary from '../components/ButtonPrimary';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import sizeBreakpoint from '../constants/sizeBreakpoint';
 
 const INITIAL_GUESS = 50;
 
@@ -75,13 +76,14 @@ const GameScreen = props => {
     };
   });
 
-  const listContainerWidth = availableScreenWidth > 350 ? '60%' : '100%';
+  const listContainerWidth =
+    availableScreenWidth > sizeBreakpoint.small ? '60%' : '100%';
 
   let buttonWidth = '100%';
   let buttonViewWidth = '40%';
   let cardPadding = 15;
 
-  if (availableScreenHeight <= 350) {
+  if (availableScreenHeight <= sizeBreakpoint.small) {
     buttonWidth = 75;
     buttonViewWidth = null;
     cardPadding = 1;
@@ -91,7 +93,9 @@ const GameScreen = props => {
     <View style={styles.screen}>
       <Card style={{ ...styles.guessCard, padding: cardPadding }}>
         <TextStyled style={styles.guessLabelText}>Computer's Guess</TextStyled>
-        {availableScreenHeight > 350 && <NumberOutput number={guess} />}
+        {availableScreenHeight > sizeBreakpoint.small && (
+          <NumberOutput number={guess} />
+        )}
         <View style={styles.buttonsRow}>
           <View style={{ width: buttonViewWidth }}>
             <ButtonPrimary
@@ -101,7 +105,9 @@ const GameScreen = props => {
               <Icon name="minus-circle" size={30} />
             </ButtonPrimary>
           </View>
-          {availableScreenHeight <= 350 && <NumberOutput number={guess} />}
+          {availableScreenHeight <= sizeBreakpoint.small && (
+            <NumberOutput number={guess} />
+          )}
           <View style={{ width: buttonViewWidth }}>
             <ButtonPrimary
               width={buttonWidth}

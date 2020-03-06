@@ -3,11 +3,16 @@ import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 
 import Card from '../components/Card';
 import colors from '../constants/colors';
+import sizeBreakpoint from '../constants/sizeBreakpoint';
 import TextStyled from '../components/TextStyled';
 import ButtonPrimary from '../components/ButtonPrimary';
 
 const calcImageWidth = windowDimensions => {
-  return windowDimensions.width > 350 ? 300 : 150;
+  return windowDimensions.width <= sizeBreakpoint.small
+    ? 150
+    : windowDimensions.width <= sizeBreakpoint.medium
+    ? 200
+    : 300;
 };
 
 const GameOverScreen = props => {
