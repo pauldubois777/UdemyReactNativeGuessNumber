@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, Platform, StyleSheet, View } from 'react-native';
 
 import colors from '../constants/colors';
 import TextStyled from '../components/TextStyled';
@@ -18,12 +18,16 @@ const styles = StyleSheet.create({
     maxHeight: 90,
     height: Dimensions.get('window').height > 600 ? 90 : 50,
     // paddingTop: 36,
-    backgroundColor: colors.primary,
+    backgroundColor:
+      Platform.OS === 'android' ? colors.primary : colors.lightBackground,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderBottomColor:
+      Platform.OS === 'android' ? 'transparent' : colors.border,
+    borderBottomWidth: Platform.OS === 'android' ? 0 : 1
   },
   headerTitle: {
-    color: 'black',
+    color: Platform.OS === 'android' ? colors.lightText : colors.primary,
     fontSize: 32,
     fontWeight: 'bold'
   }
