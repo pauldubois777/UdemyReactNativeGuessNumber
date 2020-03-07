@@ -5,9 +5,27 @@ import colors from '../constants/colors';
 import TextStyled from '../components/TextStyled';
 
 const Header = props => {
+  const headerPlatformStyle =
+    Platform.OS === 'ios' ? styles.headerIos : styles.headerAndroid;
   return (
-    <View style={styles.header}>
-      <TextStyled style={styles.headerTitle}>{props.title}</TextStyled>
+    <View
+      style={{
+        ...styles.header,
+        ...Platform.select({
+          ios: styles.headerIos,
+          android: styles.headerAndroid
+        })
+      }}>
+      <TextStyled
+        style={{
+          ...styles.headerTitle,
+          ...Platform.select({
+            ios: styles.headerTitleIos,
+            android: styles.headerTitleAndroid
+          })
+        }}>
+        {props.title}
+      </TextStyled>
     </View>
   );
 };
@@ -18,18 +36,28 @@ const styles = StyleSheet.create({
     maxHeight: 90,
     height: Dimensions.get('window').height > 600 ? 90 : 50,
     // paddingTop: 36,
-    backgroundColor:
-      Platform.OS === 'android' ? colors.primary : colors.lightBackground,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderBottomColor:
-      Platform.OS === 'android' ? 'transparent' : colors.border,
-    borderBottomWidth: Platform.OS === 'android' ? 0 : 1
+    justifyContent: 'center'
+  },
+  headerIos: {
+    backgroundColor: colors.lightBackground,
+    borderBottomColor: colors.border,
+    borderBottomWidth: 1
+  },
+  headerAndroid: {
+    backgroundColor: colors.primary,
+    borderBottomColor: 'transparent',
+    borderBottomWidth: 0
   },
   headerTitle: {
-    color: Platform.OS === 'android' ? colors.lightText : colors.primary,
     fontSize: 32,
     fontWeight: 'bold'
+  },
+  headerTitleIos: {
+    color: colors.primary
+  },
+  headerTitleAndroid: {
+    color: colors.lightText
   }
 });
 
