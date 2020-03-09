@@ -10,7 +10,7 @@ import Colors from '../constants/colors';
 import TextStyled from './TextStyled';
 
 const ButtonPrimary = props => {
-  let ButtonNative = TouchableOpacity; // ios
+  let ButtonNative = TouchableOpacity; // ios or older Android
   if (Platform.OS === 'andrdoid' && Platform.Version >= 21) {
     ButtonNative = TouchableNativeFeedback;
   }
