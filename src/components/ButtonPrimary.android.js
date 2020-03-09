@@ -1,3 +1,7 @@
+// This file and ButtonPrimary.ios were created as examples for platform specific components.
+// In real-world, probably not needed since these are not very platform specific, and could be
+// done with simple logic in the shared component we started with
+
 import React from 'react';
 import {
   Platform,
@@ -6,14 +10,12 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import Colors from '../constants/colors';
 import TextStyled from './TextStyled';
+import commonStyles from '../constants/commonStyles';
 
 const ButtonPrimary = props => {
-  let ButtonNative = TouchableOpacity; // ios or older Android
-  if (Platform.OS === 'andrdoid' && Platform.Version >= 21) {
-    ButtonNative = TouchableNativeFeedback;
-  }
+  const ButtonNative =
+    Platform.Version >= 21 ? TouchableNativeFeedback : TouchableOpacity;
 
   const buttonViewStyles = { ...styles.buttonView };
   if (props.color) {
@@ -34,24 +36,14 @@ const ButtonPrimary = props => {
   );
 };
 
-const borderRadius = 10;
 const styles = StyleSheet.create({
   // Using this style to clip the Android ripple that goes beyond the borderRadius of buttonView
   buttonContainer: {
-    borderRadius,
+    borderRadius: 10,
     overflow: 'hidden'
   },
-  buttonView: {
-    backgroundColor: Colors.primary,
-    paddingVertical: 6,
-    paddingHorizontal: 15,
-    borderRadius
-  },
-  buttonText: {
-    color: Colors.lightText,
-    fontSize: 18,
-    textAlign: 'center'
-  }
+  buttonView: commonStyles.buttonPrimary.buttonView,
+  buttonText: commonStyles.buttonPrimary.buttonText
 });
 
 export default ButtonPrimary;
