@@ -5,29 +5,22 @@ import colors from '../constants/colors';
 import TextStyled from '../components/TextStyled';
 
 const Header = props => {
-  // TODO: This can all be refactored into a startup routine to set static styles based on platform.
-  //       IE: It would be a theming based on platform, and we wouldn't then need to to any platform checks
-  //       like this in individual components.
-  let headerPlatformStyle;
-  let headerTitlePlatformStyle;
-  if (Platform.OS === 'ios') {
-    headerPlatformStyle = styles.headerIos;
-    headerTitlePlatformStyle = styles.headerTitleIos;
-  } else {
-    headerPlatformStyle = styles.headerAndroid;
-    headerTitlePlatformStyle = styles.headerTitleAndroid;
-  }
-
   return (
     <View
       style={{
         ...styles.header,
-        ...headerPlatformStyle
+        ...Platform.select({
+          ios: styles.headerIos,
+          android: styles.headerAndroid
+        })
       }}>
       <TextStyled
         style={{
           ...styles.headerTitle,
-          ...headerTitlePlatformStyle
+          ...Platform.select({
+            ios: styles.headerTitleIos,
+            android: styles.headerTitleAndroid
+          })
         }}>
         {props.title}
       </TextStyled>
