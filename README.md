@@ -12,12 +12,13 @@ I am not using "Expo CLI" for my development, but rather I created the app using
 
 All the code in the `src` folder is almost entirely written by me from scratch - it isn't just copied from the course examples.
 
-I am currently working through "Section 5: Responsive & Adaptive User Interfaces and Apps".
+The code in this repo was written for the sections dealing with Components, Styling, and Layouts (both responsive and adaptive).
 
-Please keep in mind that this code is in flux, and doesn't always represent my best coding efforts, since it is a course that I am studying.
-On the other hand, I do try to go beyond the course examples and code in a re-usable and well-engineered way.
+Please keep in mind that this code was written only for this section in the course, and doesn't always represent my best coding efforts,  or a completed application.
 
-Other than layout, I am not putting a lot of time/effort into design (colors, fonts, branding, etc).
+On the other hand, I always go beyond the course examples and try to code in a re-usable and well-engineered way.
+
+I also did not put a lot time/effort into design (colors, fonts, branding, etc), but rather focussed on the fundamentals of the section topics.
 
 ### My Notes:
 
